@@ -4,6 +4,7 @@ import {
   TextInput,
   TouchableOpacity,
   ToastAndroid,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation, useRouter } from "expo-router";
@@ -35,10 +36,14 @@ export default function SignUp() {
           // Signed up
           const user = userCredential.user;
 
-          ToastAndroid.show(
-            `${user.email} was created successfully, please sign in`,
-            ToastAndroid.BOTTOM
+          Alert.alert(
+            "Success",
+            `${user.email} was created successfully, please sign in`
           );
+          // ToastAndroid.show(
+          //   `${user.email} was created successfully, please sign in`,
+          //   ToastAndroid.BOTTOM
+          // );
 
           router.replace("auth/sign-in");
 

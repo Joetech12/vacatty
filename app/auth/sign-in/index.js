@@ -13,6 +13,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../../../configs/firebase";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SignIn() {
   const navigation = useNavigation();
@@ -36,6 +37,10 @@ export default function SignIn() {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
+
+          AsyncStorage.setItem("user", JSON.stringify(user));
+
+          router.replace("/mytrip");
 
           console.log({ user });
           // ...

@@ -7,14 +7,15 @@ module.exports = {
   theme: {
     extend: {},
     colors: {
-      primary: "#E8B20E",
+      primary: "#000",
+      // primary: "#E8B20E",
       grey: "#8F8e8d",
       ...colors,
     },
     fontFamily: {
-      'outfit': ["outfit", "system-ui"],
-      'outfitMedium': ["outfitMedium", "system-ui"],
-      'outfitBold': ["outfitBold", "system-ui"],
+      outfit: ["outfit", "system-ui"],
+      outfitMedium: ["outfitMedium", "system-ui"],
+      outfitBold: ["outfitBold", "system-ui"],
     },
   },
   plugins: [],

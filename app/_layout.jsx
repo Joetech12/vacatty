@@ -1,13 +1,10 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
 // import { useFonts } from 'expo-font';
-import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-import "react-native-reanimated";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
+import { useEffect, useState } from "react";
+import "react-native-reanimated";
+import { CreateTripContext } from "../context/CreateTripContext";
 
 export default function RootLayout() {
   useFonts({
@@ -16,13 +13,34 @@ export default function RootLayout() {
     outfitBold: require("../assets/fonts/Outfit-Bold.ttf"),
   });
 
+  const [loggedUser, setLoggedUser] = useState(null);
+  const [tripData, setTripData] = useState([]);
+
+  async function getUser() {
+    const user = await AsyncStorage.getItem("user");
+    if (user) {
+      setLoggedUser(JSON.parse(user));
+    } else {
+      setLoggedUser(null);
+    }
+  }
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
-    <Stack
-      // screenOptions={{
-      //   headerShown: false,
-      // }}
+    <CreateTripContext.Provider
+      value={{ loggedUser, setLoggedUser, tripData, setTripData }}
     >
-      <Stack.Screen name='index' options={{ headerShown: false }} />
-    </Stack>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name='(tabs)' />
+        {/* <Stack.Screen name='index' options={{ headerShown: false }} /> */}
+      </Stack>
+    </CreateTripContext.Provider>
   );
 }
